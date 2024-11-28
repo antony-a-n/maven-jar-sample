@@ -2,7 +2,7 @@ pipeline {
     agent any
    environment {
        USER = "ubuntu"
-       HOSTNAME = "54.166.0.27"
+       HOSTNAME = "3.80.208.247"
    }
        
     stages {
