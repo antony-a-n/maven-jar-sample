@@ -53,7 +53,7 @@ pipeline {
                     nexusArtifactUploader(
         nexusVersion: 'nexus3',
         protocol: 'http',
-        nexusUrl: 'http://172.31.84.149:8081/repository/test-maven/',
+        nexusUrl: '172.31.84.149:8081/repository/test-maven/',
         groupId: 'test-maven-group',
         version: "${env.BUILD_ID}",
         repository: 'test-maven',
