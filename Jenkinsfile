@@ -61,7 +61,7 @@ pipeline {
         artifacts: [
             [artifactId: "${JOB_NAME}",
              classifier: '',
-             file: 'maven-jar-sample-' + env.BUILD_ID + '.jar',
+             file: 'target/maven-jar-sample-' + env.BUILD_ID + '.jar',
              type: 'jar']
         ]
         )
