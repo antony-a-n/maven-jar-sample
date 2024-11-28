@@ -3,6 +3,7 @@ pipeline {
    environment {
        USER = "ubuntu"
        HOSTNAME = "3.80.208.247"
+       version = "1"
    }
        
     stages {
@@ -58,7 +59,7 @@ pipeline {
         artifacts: [
             [artifactId: projectName,
              classifier: '',
-             file: 'my-service-' + version + '.jar',
+             file: 'my-service-' + env.version + '.jar',
              type: 'jar']
         ]
         )
