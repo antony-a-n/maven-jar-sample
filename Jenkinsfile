@@ -3,7 +3,6 @@ pipeline {
    environment {
        USER = "ubuntu"
        HOSTNAME = "3.80.208.247"
-       version = "1"
    }
        
     stages {
@@ -47,6 +46,7 @@ pipeline {
         }
 
         stage('upload artifact to nexus'){
+            def version = "1.0.0"
             steps{
                     nexusArtifactUploader(
         nexusVersion: 'nexus3',
