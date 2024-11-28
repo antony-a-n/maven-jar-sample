@@ -52,11 +52,11 @@ pipeline {
         protocol: 'http',
         nexusUrl: 'http://3.80.208.247:8081/repository/test-maven/',
         groupId: 'test-maven-group',
-        version: "${env.BUILD_ID}",
+        version: "${BUILD_ID}",
         repository: 'test-maven',
         credentialsId: 'nexus',
         artifacts: [
-            [artifactId: "${env.JOB_NAME}",
+            [artifactId: "${JOB_NAME}",
              classifier: '',
              file: 'my-service-' + version + '.jar',
              type: 'jar']
