@@ -52,7 +52,7 @@ pipeline {
         protocol: 'http',
         nexusUrl: 'http://3.80.208.247:8081/repository/test-maven/',
         groupId: 'test-maven-group',
-        version: $BUILD_NUMBER,
+        version: ${env.BUILD_ID},
         repository: 'test-maven',
         credentialsId: 'nexus',
         artifacts: [
