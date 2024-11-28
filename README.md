@@ -6,5 +6,6 @@ new addition 2
 newline 4
 newline3
 newline 5
+new line 6
 # Reference
 https://www.yhayashi30.org/java/maven-create-jar-file/
