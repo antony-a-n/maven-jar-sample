@@ -50,7 +50,7 @@ pipeline {
                     nexusArtifactUploader(
         nexusVersion: 'nexus3',
         protocol: 'http',
-        nexusUrl: 'http://3.80.208.247:8081/repository/test-maven/',
+        nexusUrl: 'http://172.31.84.149:8081/repository/test-maven/',
         groupId: 'test-maven-group',
         version: "${env.BUILD_ID}",
         repository: 'test-maven',
@@ -58,7 +58,7 @@ pipeline {
         artifacts: [
             [artifactId: "${JOB_NAME}",
              classifier: '',
-             file: 'my-service-' + version + '.jar',
+             file: 'my-service-' + env.BUILD_ID + '.jar',
              type: 'jar']
         ]
         )
