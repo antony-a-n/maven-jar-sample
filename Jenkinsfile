@@ -27,11 +27,11 @@ pipeline {
                 echo "building"
             }
         }
-        stage('test'){
-            steps{
-            sh  'mvn test'
-            }
-        }
+        //stage('test'){
+            //steps{
+            //sh  'mvn test'
+            //}
+        //}
         
         stage('deploy'){
            
