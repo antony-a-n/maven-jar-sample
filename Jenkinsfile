@@ -2,7 +2,7 @@ pipeline {
     agent any
    environment {
        USER = "ubuntu"
-       HOSTNAME = "3.80.208.247"
+       HOSTNAME = "172.31.84.149"
    }
        
     stages {
@@ -46,20 +46,19 @@ pipeline {
         }
 
         stage('upload artifact to nexus'){
-            def version = "1.0.0"
             steps{
                     nexusArtifactUploader(
         nexusVersion: 'nexus3',
         protocol: 'http',
         nexusUrl: 'http://3.80.208.247:8081/repository/test-maven/',
         groupId: 'test-maven-group',
-        version: version,
+        version: $BUILD_NUMBER,
         repository: 'test-maven',
         credentialsId: 'nexus',
         artifacts: [
             [artifactId: projectName,
              classifier: '',
-             file: 'my-service-' + env.version + '.jar',
+             file: 'my-service-' + version + '.jar',
              type: 'jar']
         ]
         )
