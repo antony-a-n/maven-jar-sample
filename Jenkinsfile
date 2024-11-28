@@ -34,11 +34,14 @@ pipeline {
         }
         
         stage('deploy'){
+           
+           environment {
+            BUILD_VERSION = "${env.BUILD_ID}"
+           }
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSHKEY', keyFileVariable: 'SSH_KEY_FILE')]) {
                     sh '''
-                        echo "Using SSH Key File: ${SSH_KEY_FILE}"
-                        rsync -avzP -e "ssh -i ${SSH_KEY_FILE} -o StrictHostKeyChecking=no" target/maven-jar-sample-${env.BUILD_ID}.jar $USER@$HOSTNAME:/home/ubuntu/java-app/
+                        rsync -avzP -e "ssh -i ${SSH_KEY_FILE} -o StrictHostKeyChecking=no" target/maven-jar-sample-"${BUILD_VERSION}".jar $USER@$HOSTNAME:/home/ubuntu/java-app/
                         ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_FILE} $USER@$HOSTNAME sudo /usr/bin/systemctl restart java-app.service
                     '''
                 }
