@@ -44,6 +44,26 @@ pipeline {
                 }
             }
         }
+
+        stage('upload artifact to nexus'){
+            steps{
+                    nexusArtifactUploader(
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: 'http://3.80.208.247:8081/repository/test-maven/',
+        groupId: 'test-maven-group',
+        version: version,
+        repository: 'test-maven',
+        credentialsId: 'nexus',
+        artifacts: [
+            [artifactId: projectName,
+             classifier: '',
+             file: 'my-service-' + version + '.jar',
+             type: 'jar']
+        ]
+        )
+            }
+        }
                 
             
         }
