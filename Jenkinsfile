@@ -56,7 +56,7 @@ pipeline {
         repository: 'test-maven',
         credentialsId: 'nexus',
         artifacts: [
-            [artifactId: projectName,
+            [artifactId: "${env.JOB_NAME}",
              classifier: '',
              file: 'my-service-' + version + '.jar',
              type: 'jar']
