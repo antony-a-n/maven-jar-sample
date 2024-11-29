@@ -19,29 +19,20 @@ pipeline {
             }
         }
 
-        stage('Code Analysis') {
-            environment {
-                scannerHome = tool 'sonarqube'
-            }
-            steps {
-                script {
-                    withSonarQubeEnv('sonarqube') {
-                        sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=test-java\
-                            -Dsonar.projectName=test-java \
-                            -Dsonar.projectVersion=1.0 \
-                            -Dsonar.sources=."
-                    }
-                }
+        stage('code scan'){
+            steps{
+                withSonarQubeEnv(installationName: 'sonarqube') { 
+                    sh './mvnw clean sonar:sonar'
             }
         }
+
+
         stage ('build'){
             steps{
                 sh '''
                 mvn clean package
             
                 '''
-                echo "building"
             }
         }
         //stage('test'){
