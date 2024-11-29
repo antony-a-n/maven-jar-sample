@@ -22,7 +22,7 @@ pipeline {
         stage('code scan'){
             steps{
                 withSonarQubeEnv(installationName: 'sonarqube') { 
-                    sh './mvn clean sonar:sonar'
+                    sh 'mvn clean sonar:sonar'
             }
         }
 
