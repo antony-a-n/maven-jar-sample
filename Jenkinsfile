@@ -18,6 +18,23 @@ pipeline {
                 git branch: 'pipeline', url: 'https://github.com/antony-a-n/maven-jar-sample.git'
             }
         }
+
+        stage('Code Analysis') {
+            environment {
+                scannerHome = tool 'Sonarqube'
+            }
+            steps {
+                script {
+                    withSonarQubeEnv('Sonarqube') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=test-java\
+                            -Dsonar.projectName=test-java \
+                            -Dsonar.projectVersion=1.0 \
+                            -Dsonar.sources=."
+                    }
+                }
+            }
+        }
         stage ('build'){
             steps{
                 sh '''
