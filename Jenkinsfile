@@ -45,13 +45,10 @@ pipeline {
         
         stage('deploy'){
            
-           environment {
-            BUILD_VERSION = "${env.BUILD_ID}"
-           }
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSHKEY', keyFileVariable: 'SSH_KEY_FILE')]) {
                     sh '''
-                        rsync -avzP -e "ssh -i ${SSH_KEY_FILE} -o StrictHostKeyChecking=no" target/maven-jar-sample-"${BUILD_VERSION}".jar $USER@$HOSTNAME:/home/ubuntu/java-app/
+                        rsync -avzP -e "ssh -i ${SSH_KEY_FILE} -o StrictHostKeyChecking=no" target/maven-jar-sample-${version}.jar $USER@$HOSTNAME:/home/ubuntu/java-app/
                         ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_FILE} $USER@$HOSTNAME sudo /usr/bin/systemctl restart java-app.service
                     '''
                 }
@@ -65,13 +62,13 @@ pipeline {
         protocol: 'http',
         nexusUrl: '172.31.84.149:8081/repository/test-maven/',
         groupId: 'test-maven-group',
-        version: "${env.BUILD_ID}",
+        version: "version",
         repository: 'test-maven',
         credentialsId: 'nexus',
         artifacts: [
             [artifactId: "${JOB_NAME}",
              classifier: '',
-             file: 'target/maven-jar-sample-' + env.BUILD_ID + '.jar',
+             file: 'target/maven-jar-sample-' + version + '.jar',
              type: 'jar']
         ]
         )
