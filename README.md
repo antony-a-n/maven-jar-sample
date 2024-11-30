@@ -10,5 +10,6 @@ new line 6
 new line 7
 new line 8
 new line 9
+last line
 # Reference
 https://www.yhayashi30.org/java/maven-create-jar-file/
