@@ -48,7 +48,8 @@ pipeline {
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSHKEY', keyFileVariable: 'SSH_KEY_FILE')]) {
                     sh '''
-                        rsync -avzP -e "ssh -i ${SSH_KEY_FILE} -o StrictHostKeyChecking=no" target/maven-jar-sample-${version}.jar $USER@$HOSTNAME:/home/ubuntu/java-app/
+                        ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_FILE} $USER@$HOSTNAME sudo rm -rf /home/ubuntu/java-app/target/maven-jar-sample-*.jar
+                        rsync -avzP -e "ssh -i ${SSH_KEY_FILE} -o StrictHostKeyChecking=no" target/maven-jar-sample-*.jar $USER@$HOSTNAME:/home/ubuntu/java-app/
                         ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_FILE} $USER@$HOSTNAME sudo /usr/bin/systemctl restart java-app.service
                     '''
                 }
