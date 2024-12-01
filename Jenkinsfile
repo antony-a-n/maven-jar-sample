@@ -44,14 +44,14 @@ pipeline {
         //}
         
         stage('deploy'){
-
+            
             steps{
 
                 script {
-                    def pom = readFile('pom.xml')
-                    def parsedPom = new XmlSlurper().parseText(pom)
-                    env.POM_VERSION = parsedPom.version.text()
+                def pom = readMavenPom file: 'pom.xml'
+                env.POM_VERSION = pom.version
                 }
+
 
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSHKEY', keyFileVariable: 'SSH_KEY_FILE')]) {
                     sh '''
