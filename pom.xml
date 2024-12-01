@@ -6,7 +6,7 @@
 
   <groupId>com.yhayashi30.sample</groupId>
   <artifactId>maven-jar-sample</artifactId>
-  <version>${env.BUILD_ID}</version>
+  <version>1.0</version>
 
   <name>maven-jar-sample</name>
   <!-- FIXME change it to the project's website -->
