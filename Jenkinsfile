@@ -44,13 +44,15 @@ pipeline {
         //}
         
         stage('deploy'){
-            
+
+            steps{
+                
                 script {
                 def pom = readMavenPom file: 'pom.xml'
                 env.POM_VERSION = pom.version
                 }
 
-            steps{
+
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSHKEY', keyFileVariable: 'SSH_KEY_FILE')]) {
                     sh '''
                         rsync -avzP -e "ssh -i ${SSH_KEY_FILE} -o StrictHostKeyChecking=no" target/maven-jar-sample-"${POM_VERSION}".jar $USER@$HOSTNAME:/home/ubuntu/java-app/
